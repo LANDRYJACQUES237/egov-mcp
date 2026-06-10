@@ -3,6 +3,7 @@ import axios from 'axios'
 import type { Message, ToolCall, HistoryMessage } from '../types'
 
 const API_URL = import.meta.env.VITE_API_URL || 'http://127.0.0.1:8000'
+const API_KEY = import.meta.env.VITE_API_KEY || 'dev-secret'
 
 export function useChat() {
   const [messages, setMessages] = useState<Message[]>([])
@@ -25,10 +26,11 @@ export function useChat() {
     setError(null)
 
     try {
-      const response = await axios.post(`${API_URL}/mcp/chat`, {
-        message: content,
-        history,
-      })
+      const response = await axios.post(
+        `${API_URL}/mcp/chat`,
+        { message: content, history },
+        { headers: { 'X-API-Key': API_KEY } }
+      )
 
       const data = response.data
       const toolCalls: ToolCall[] = data.tool_calls || []
