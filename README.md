@@ -122,7 +122,7 @@ egov-mcp/
 
 ## AI Tools Used
 
-- **Claude (Anthropic):** Architecture design, code generation, debugging
+- **Claude (Anthropic):** Architecture design, code generation, debugging,docs
 - **Prompts used:** Available in PROMPTS.md
 
 ## License
