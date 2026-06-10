@@ -1,22 +1,11 @@
-# 1. Crée le .gitignore d'abord pour ne pas commiter le .venv
-cat > .gitignore << 'EOF'
-backend/.venv/
-backend/__pycache__/
-backend/app/__pycache__/
-backend/app/tools/__pycache__/
-backend/app/schemas/__pycache__/
-backend/app/core/__pycache__/
-*.pyc
-.env
+cat > requirements.txt << 'EOF'
+fastapi==0.115.0
+uvicorn[standard]==0.30.6
+pydantic==2.9.0
+pydantic-settings==2.5.2
+httpx==0.27.2
+groq==0.11.0
+python-dotenv==1.0.1
+pytest==8.3.3
+pytest-asyncio==0.24.0
 EOF
-
-# 2. Ajoute tout
-git add .
-
-# 3. Commit
-git commit -m "feat: backend MCP server with 5 tools — Groq LLM"
-
-# 4. Connecte au repo existant — remplace TON_USERNAME
-git remote add origin https://github.com/LANDRYJACQUES237/egov-mcp.git
-git branch -M main
-git push -u origin main
