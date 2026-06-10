@@ -175,18 +175,24 @@ async def mcp_chat(body: dict):
 
     client = AsyncGroq(api_key=settings.groq_api_key)
 
-    system_prompt = (
-        "Tu es un assistant spécialisé dans les services gouvernementaux du Cameroun. "
-        "Tu aides les entreprises et citoyens avec leurs obligations fiscales, sociales et administratives. "
-        "Réponds en français ou en anglais selon la langue de l'utilisateur. "
-        "IMPORTANT: Tu DOIS utiliser les tools disponibles pour répondre. "
-        "Ne réponds JAMAIS sans appeler au moins un tool. "
-        "Pour les questions fiscales, utilise get_tax_calendar. "
-        "Pour les entreprises, utilise search_companies. "
-        "Pour le CNPS, utilise validate_cnps_number ou calculate_social_contributions. "
-        "Pour les données publiques, utilise get_public_datasets."
-    )
+   # Détecte la langue du message
+    lang = "french"
+    english_words = ["what", "when", "how", "check", "show", "get", "find", "calculate", "verify", "list"]
+    if any(w in user_message.lower() for w in english_words):
+        lang = "english"
 
+    system_prompt = (
+        f"You are a specialized assistant for Cameroonian government services. "
+        f"You help businesses and citizens with their tax, social, and administrative obligations. "
+        f"CRITICAL LANGUAGE RULE: The user is writing in {'English' if lang == 'english' else 'French'}. "
+        f"You MUST respond in {'English' if lang == 'english' else 'French'} only. Do NOT mix languages. "
+        f"IMPORTANT: You MUST always use the available tools to answer. "
+        f"NEVER answer without calling at least one tool. "
+        f"For tax questions, use get_tax_calendar. "
+        f"For companies, use search_companies. "
+        f"For CNPS, use validate_cnps_number or calculate_social_contributions. "
+        f"For public data, use get_public_datasets."
+    )
     messages = [{"role": "system", "content": system_prompt}]
 
     # Ajoute l'historique

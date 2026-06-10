@@ -1,11 +1,4 @@
-cat > requirements.txt << 'EOF'
-fastapi==0.115.0
-uvicorn[standard]==0.30.6
-pydantic==2.9.0
-pydantic-settings==2.5.2
-httpx==0.27.2
-groq==0.11.0
-python-dotenv==1.0.1
-pytest==8.3.3
-pytest-asyncio==0.24.0
-EOF
+cd ~/Desktop/course_english/egov-mcp
+git add .
+git commit -m "fix: improve language detection in system prompt"
+git push
